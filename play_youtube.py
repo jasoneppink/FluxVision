@@ -37,7 +37,7 @@ for video in playlist:
 		title.write(video.title)
 
 	#adjust volume based on time (mute from 11pm to 10am)
-	if strftime("%-H%M", localtime()) > 2300 or strftime("%-H%M", localtime()) < 1000:
+	if int(strftime("%-H%M", localtime())) > 2300 or int(strftime("%-H%M", localtime())) < 1000:
 		#mute audio
 		vol=-6000
 	else:
