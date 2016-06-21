@@ -32,18 +32,27 @@ FluxVision was built to support a collection of persistent video installations r
   /usr/bin/python /home/pi/play_youtube.py YOUR_PLAYLIST_ID_HERE
   [ctrl-X] [y] [enter]
   ```
-5. Add lines to /etc/rc.local so FluxVision starts at boot. Update location of scripts and username ("/home/pi/" and "pi", respectively) if necessary. ("ticker.py" is for the character LCD display; don't add this line if you're not using one.)
+5. Add line to /etc/rc.local so FluxVision starts at boot. (Update location of script and username - "/home/pi/" and "pi", respectively - if necessary.)
 
   ```
   sudo nano /etc/rc.local
   sudo -u pi /home/pi/startup.sh >/dev/null 2>&1 &
+  [ctrl-x] [y] [enter]
+  ```
+6. (Optional) Add line to /etc/rc.local so ticker starts at boot. "ticker.py" requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD). (update location of script if necessary.)
+ 
+  ```
+  sudo nano /etc/rc.local
   /usr/bin/python /home/pi/ticker.py >/dev/null 2>&1 &
   [ctrl-x] [y] [enter]
   ```
-6. Reboot! Note: it may take a minute before you see anything because videos are being downloaded. Check the newly created "~/media" directory to ensure downloading is happening.
+
+7. Reboot! Note: it may take a minute before you see anything because videos are being downloaded. Check the newly created "~/media" directory to ensure downloading is happening.
 
   ```
   sudo reboot
   ```
+
+
 
 ![Installation at Silent Barn](/images/installation_shot_1.jpg?raw=true "Installation at Silent Barn")
