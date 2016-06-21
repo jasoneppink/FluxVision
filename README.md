@@ -1,17 +1,17 @@
 # FluxVision
 FluxVision was built to support a collection of persistent video installations running on Raspberry Pis that automatically update themselves from a YouTube playlist. Anyone (with proper credentials) can add a video to the YouTube playlist, allowing for simple administration of a collaboratively-curated, ever-evolving, looping video installation.
 
-###Features:
+#####Features:
 * Videos are downaloded once, not streamed (light on bandwidth)
 * New videos are downloaded in the background, available within one playthrough of the playlist
 * Automatic muting at night
 * Character LCD ticker displays title of currently-playing video
 
-###Upcoming features:
+#####Upcoming features:
 * Skip button support
 * Volume knob support
 
-#Installation
+##Installation
 
 1. Install youtube-dl
 
@@ -45,3 +45,5 @@ FluxVision was built to support a collection of persistent video installations r
   ```
   sudo reboot
   ```
+
+![Installation at Silent Barn](/images/installation_shot_1.jpg?raw=true "Installation at Silent Barn")
