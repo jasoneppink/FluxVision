@@ -39,7 +39,7 @@ FluxVision was built to support a collection of persistent video installations r
   sudo -u pi /home/pi/startup.sh >/dev/null 2>&1 &
   [ctrl-x] [y] [enter]
   ```
-6. (Optional) Add line to /etc/rc.local so ticker starts at boot. "ticker.py" requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD). (update location of script if necessary.)
+6. (Optional) Add line to /etc/rc.local so ticker starts at boot. (Update location of script if necessary.) Note: "ticker.py" requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD). 
  
   ```
   sudo nano /etc/rc.local
