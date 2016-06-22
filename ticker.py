@@ -38,7 +38,7 @@ def scroll(lcd, text):
 		lcd.clear()
 
 while True:
-	with open(abs_path + 'title.txt') as titlefile:
+	with open(abs_path + '.title_txt') as titlefile:
 		titledata = titlefile.read()
 	scroll(lcd, titledata)
 	lcd.message("You're watching\nFluxVision!")

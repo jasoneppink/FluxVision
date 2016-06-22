@@ -6,33 +6,35 @@ import sys
 import subprocess
 import os
 import pickle
-import get_youtube
-from get_youtube import update
-import thread
+#from get_youtube import videoinfo
+#from get_youtube import update
+import threading
 import time
 from time import localtime, strftime
 
 playlist_id = sys.argv[1]
 
-#blank out the command line, mostly
-#os.system('clear')
-#subprocess.call(['printf', '%b\n', '\033[2J\033[:H'], stdout=open(os.devnull, 'wb'))
+class videoinfo(object):
+        def __init__(self, title, youtubeURL, filename):
+                self.title = title
+                self.youtubeURL = youtubeURL
+                self.filename = filename
 
 #get absolute path of this script (necessary because it's being called, indirectly, from rc.local)
 abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 try:
-	with open(abs_path + 'playlist.dat') as f:
+	with open(abs_path + '.playlist_dat') as f:
 		playlist = pickle.load(f)
-except:
+except Exception, e:
+#	print str(e)
 	playlist = []
 
-#get_youtube.py function
-thread.start_new_thread(update, (playlist_id,))
-
 for video in playlist:
+	#print "video: " + video.title
+
 	#update title for ticker
-	with open(abs_path + 'title.txt', 'w') as title:
+	with open(abs_path + '.title_txt', 'w') as title:
 		title.truncate()
 		title.write(video.title)
 
@@ -47,7 +49,6 @@ for video in playlist:
 	if os.path.isfile(abs_path + video.filename):
 		process = subprocess.call(['omxplayer', '-b', '-o', 'local', abs_path + video.filename, '--vol', str(vol)], stdout=open(os.devnull, 'wb'))
 
-	#test blank
-#	os.system('clear')
-#	subprocess.call(['printf', '%b\n', '\033[2J\033[:H'], stdout=open(os.devnull, 'wb'))
-#	time.sleep(10)
+#check if the playlist is currently being updated; if not, do that now as a separate process
+if os.path.exists(abs_path + '.get_youtube_lck') is False:
+	p = subprocess.Popen([sys.executable, abs_path + 'get_youtube.py'])

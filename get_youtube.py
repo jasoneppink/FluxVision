@@ -18,6 +18,10 @@ class videoinfo(object):
 		self.filename = filename
 
 def update(playlist_id):
+	#"lock" file keeps more than one instance from running
+	with open(abs_path + '.get_youtube_lck', 'w'):
+		os.utime(abs_path + '.get_youtube_lck', None)
+
 	#for each video in playlist, get title, YouTube URL, and (aspirational) local file name (media/ID.mp4)
 	#'-f 18' is a 360p mp4 file (very standard option), others are mp4 backups with similar sizes
 	raw_output = subprocess.check_output(['youtube-dl', '-o', "media/%(id)s.%(ext)s", 'https://www.youtube.com/playlist?list=' + playlist_id, '-f', '18/134/135/22', '--get-filename', '--get-title', '--get-url'])
@@ -27,9 +31,12 @@ def update(playlist_id):
 	playlist = []
 	i=0
 	while i < len(youtube_data):
-		print(youtube_data[i])
 		playlist.append(videoinfo(youtube_data[i], youtube_data[i+1], youtube_data[i+2]))
 		i += 3
+
+	#save the list of classes so play_youtube.py can use it
+        with open(abs_path + ".playlist_dat", "wb") as f:
+                pickle.dump(playlist, f)
 
 	#if there's a video in the list that isn't already saved, download it
 	for video in playlist:
@@ -45,6 +52,7 @@ def update(playlist_id):
 		if match is False:
 			os.remove(abs_path + "media/" + file)
 
-	#save the list of classes so play_youtube.py can use it
-	with open(abs_path + "playlist.dat", "wb") as f:
-		pickle.dump(playlist, f)
+	#removes lock file
+	os.remove(abs_path + '.get_youtube_lck')
+
+update('PLLV6BPSazQd4K5bGTy9oJxB3tCKLChVkH')
