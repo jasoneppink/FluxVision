@@ -24,7 +24,9 @@ FluxVision was built to support a collection of persistent video installations r
   sudo apt-get install omxplayer
   ```
 3. Copy all files into your home directory (usually /home/pi/).
+
 4. Update "config.txt" with your playlist ID, mute and unmute times, and use of ticker
+
 5. Add this line to /etc/rc.local so FluxVision starts at boot (change directory if necessary):
 
   ```
