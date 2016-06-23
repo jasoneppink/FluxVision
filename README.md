@@ -2,7 +2,7 @@
 FluxVision was built to support a collection of persistent video installations running on Raspberry Pis that automatically update themselves from a YouTube playlist. Anyone (with proper credentials) can add a video to the YouTube playlist, allowing for simple administration of a collaboratively-curated, ever-evolving, looping video installation.
 
 #####Features:
-* Videos are downaloded once, not streamed (light on bandwidth)
+* Videos are downloaded once, not streamed (light on bandwidth)
 * New videos are downloaded in the background, available within one playthrough of the playlist
 * Automatic muting at night
 * Character LCD ticker displays title of currently-playing video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
