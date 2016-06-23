@@ -1,0 +1,13 @@
+[FluxVision Config]
+
+#YouTube playlist ID
+playlist_id = PLLV6BPSazQd4K5bGTy9oJxB3tCKLChVkH
+
+# Waht time to turn the sound off? (e.g. 2300 = 11pm)
+mute_night_time = 2300
+
+# What time to turn the sound back on? (e.g. 1000 = 10am)
+unmute_morning_time = 1000
+
+# Are you using a graphic LCD? (y or n)
+use_ticker = y

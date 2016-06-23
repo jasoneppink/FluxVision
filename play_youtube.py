@@ -6,13 +6,20 @@ import sys
 import subprocess
 import os
 import pickle
-#from get_youtube import videoinfo
-#from get_youtube import update
 import threading
 import time
 from time import localtime, strftime
+import ConfigParser
 
-playlist_id = sys.argv[1]
+#get absolute path of this script (necessary because it's being called, indirectly, from rc.local)
+abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
+
+config = ConfigParser.ConfigParser()
+config.readfp(open(abs_path + 'config.txt', 'r'))
+playlist_id = config.get('FluxVision Config', 'playlist_id')
+mute_night_time = config.get('FluxVision Config', 'mute_night_time')
+unmute_morning_time = config.get('FluxVision Config', 'unmute_morning_time')
+use_ticker = config.get('FluxVision Config', 'use_ticker')
 
 class videoinfo(object):
         def __init__(self, title, youtubeURL, filename):
@@ -20,26 +27,22 @@ class videoinfo(object):
                 self.youtubeURL = youtubeURL
                 self.filename = filename
 
-#get absolute path of this script (necessary because it's being called, indirectly, from rc.local)
-abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
-
+#open .playlist_dat
 try:
 	with open(abs_path + '.playlist_dat') as f:
 		playlist = pickle.load(f)
 except Exception, e:
-#	print str(e)
 	playlist = []
 
 for video in playlist:
-	#print "video: " + video.title
-
 	#update title for ticker
-	with open(abs_path + '.title_txt', 'w') as title:
-		title.truncate()
-		title.write(video.title)
+	if use_ticker == 'y':
+		with open(abs_path + '.title_txt', 'w') as title:
+			title.truncate()
+			title.write(video.title)
 
-	#adjust volume based on time (mute from 11pm to 10am)
-	if int(strftime("%-H%M", localtime())) > 2300 or int(strftime("%-H%M", localtime())) < 1000:
+	#adjust volume based on times in config.txt
+	if int(strftime("%-H%M", localtime())) > int(mute_night_time) or int(strftime("%-H%M", localtime())) < int(unmute_morning_time):
 		#mute audio
 		vol=-6000
 	else:

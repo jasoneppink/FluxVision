@@ -8,8 +8,13 @@ import subprocess
 import collections
 import os
 import pickle
+import ConfigParser
 
 abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
+
+config = ConfigParser.ConfigParser()
+config.readfp(open(abs_path + 'config.txt', 'r'))
+playlist_id = config.get('FluxVision Config', 'playlist_id')
 
 class videoinfo(object):
 	def __init__(self, title, youtubeURL, filename):
@@ -55,4 +60,4 @@ def update(playlist_id):
 	#removes lock file
 	os.remove(abs_path + '.get_youtube_lck')
 
-update('PLLV6BPSazQd4K5bGTy9oJxB3tCKLChVkH')
+update(playlist_id)
