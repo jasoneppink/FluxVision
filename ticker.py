@@ -26,14 +26,21 @@ lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_c
 # Scroll function
 def scroll(lcd, text):
 	n = 0
-	for i in range(0, len(text)-15):
-		lcd.message("Now playing:\n" + text[n:n+16])
-		n += 1
-		# Pause longer on beginning and end of scroll
-		if i==0 or i==len(text)-16:
-			time.sleep(2)
-		else:
-			time.sleep(.5)
+	#if there are more than 16 characters in the title, scroll
+	if len(text)>16:
+		for i in range(0, len(text)-15):
+			lcd.message("Now playing:\n" + text[n:n+16])
+			n += 1
+			# Pause longer on beginning and end of scroll
+			if i==0 or i==len(text)-16:
+				time.sleep(2)
+			else:
+				time.sleep(.5)
+			lcd.clear()
+	#if there are 16 or fewer characters, don't scroll
+	else:
+		lcd.message("Now playing:\n" + text)
+		time.sleep(6.0)
 		lcd.clear()
 
 while True:
