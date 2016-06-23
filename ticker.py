@@ -6,7 +6,6 @@ import Adafruit_CharLCD as LCD
 import os
 
 abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
-print abs_path
 
 # Raspberry Pi pin configuration:
 lcd_rs        = 27
@@ -38,9 +37,13 @@ def scroll(lcd, text):
 		lcd.clear()
 
 while True:
-	with open(abs_path + '.title_txt') as titlefile:
-		titledata = titlefile.read()
-	scroll(lcd, titledata)
-	lcd.message("You're watching\nFluxVision!")
-	time.sleep(6.0)
-	lcd.clear()
+	if os.path.isfile(abs_path + '.title_txt') is True:
+		with open(abs_path + '.title_txt') as titlefile:
+			titledata = titlefile.read()
+		scroll(lcd, titledata)
+		lcd.clear()
+		lcd.message("You're watching\nFluxVision!")
+		time.sleep(6.0)
+		lcd.clear()
+	else:
+		lcd.message(" Downloading\n videos now...  ")

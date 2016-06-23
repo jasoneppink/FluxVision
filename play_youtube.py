@@ -14,6 +14,7 @@ import ConfigParser
 #get absolute path of this script (necessary because it's being called, indirectly, from rc.local)
 abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
 
+#read from configuration file
 config = ConfigParser.ConfigParser()
 config.readfp(open(abs_path + 'config.txt', 'r'))
 playlist_id = config.get('FluxVision Config', 'playlist_id')
@@ -27,7 +28,7 @@ class videoinfo(object):
                 self.youtubeURL = youtubeURL
                 self.filename = filename
 
-#open .playlist_dat
+#open playlist file
 try:
 	with open(abs_path + '.playlist_dat') as f:
 		playlist = pickle.load(f)
@@ -35,21 +36,21 @@ except Exception, e:
 	playlist = []
 
 for video in playlist:
-	#update title for ticker
-	if use_ticker == 'y':
-		with open(abs_path + '.title_txt', 'w') as title:
-			title.truncate()
-			title.write(video.title)
-
 	#adjust volume based on times in config.txt
 	if int(strftime("%-H%M", localtime())) > int(mute_night_time) or int(strftime("%-H%M", localtime())) < int(unmute_morning_time):
-		#mute audio
+		#mute
 		vol=-6000
 	else:
 		vol=0
 
-	#play video (but make sure it exists first)
+	#if video file exists
 	if os.path.isfile(abs_path + video.filename):
+		#update ticker title
+		if use_ticker == 'y':
+			with open(abs_path + '.title_txt', 'w') as title:
+				title.truncate()
+				title.write(video.title)
+		#play video
 		process = subprocess.call(['omxplayer', '-b', '-o', 'local', abs_path + video.filename, '--vol', str(vol)], stdout=open(os.devnull, 'wb'))
 
 #check if the playlist is currently being updated; if not, do that now as a separate process
