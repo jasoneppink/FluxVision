@@ -3,9 +3,9 @@ FluxVision was built to support a collection of persistent video installations r
 
 #####Features:
 * Videos are downloaded once, not streamed (light on bandwidth)
-* New videos are downloaded in the background, available within one playthrough of the playlist
-* Automatic muting at night
-* Character LCD ticker displays title of currently-playing video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
+* New videos are downloaded in the background, usually available within one playthrough of the playlist
+* Automatic muting at night (times can be edited)
+* Character LCD ticker displays title of current video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
 
 #####Upcoming features:
 * Skip button support
@@ -25,7 +25,7 @@ FluxVision was built to support a collection of persistent video installations r
   ```
 3. Copy all files into your home directory (usually /home/pi/).
 
-4. Update "config.txt" with your playlist ID, mute and unmute times, and use of ticker
+4. Update "config.txt" with your playlist ID and other details.
 
 5. Add this line to /etc/rc.local so FluxVision starts at boot (change directory if necessary):
 
