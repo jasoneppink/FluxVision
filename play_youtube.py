@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # This script imports playlist.dat
 # updates it in the background
 # and plays each video
@@ -18,8 +20,8 @@ abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
 config = ConfigParser.ConfigParser()
 config.readfp(open(abs_path + 'config.txt', 'r'))
 playlist_id = config.get('FluxVision Config', 'playlist_id')
-mute_night_time = config.get('FluxVision Config', 'mute_night_time')
-unmute_morning_time = config.get('FluxVision Config', 'unmute_morning_time')
+mute_time = config.get('FluxVision Config', 'mute_time')
+unmute_time = config.get('FluxVision Config', 'unmute_time')
 use_ticker = config.get('FluxVision Config', 'use_ticker')
 
 class videoinfo(object):
@@ -37,11 +39,17 @@ except Exception, e:
 
 for video in playlist:
 	#adjust volume based on times in config.txt
-	if int(strftime("%-H%M", localtime())) > int(mute_night_time) or int(strftime("%-H%M", localtime())) < int(unmute_morning_time):
-		#mute
-		vol=-6000
-	else:
-		vol=0
+	if (int(mute_time) > int(unmute_time)): # if mute happens before midnight
+		if int(strftime("%-H%M", localtime())) > int(mute_time) or int(strftime("%-H%M", localtime())) < int(unmute_time):
+			#mute
+			vol=-6000
+		else:
+			vol=0
+	else: # if mute happens after midnight
+		if int(strftime("%-H%M", localtime())) > int(mute_time) and int(strftime("%-H%M", localtime())) < int(unmute_time):
+			vol=-6000
+		else:
+			vol=0
 
 	#if video file exists
 	if os.path.isfile(abs_path + video.filename):

@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # This script downloads information for each video in a YouTube playlist,
 # downloads any videos it doesn't already have,
 # and deletes any videos that are no longer in the playlist,
