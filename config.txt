@@ -3,6 +3,13 @@
 #YouTube playlist ID
 playlist_id = PLLV6BPSazQd4K5bGTy9oJxB3tCKLChVkH
 
+# YouTube download format
+# Recommended:
+# 360p mp4: 18           
+# 720p mp4: 22/18
+# 1080p mp4: 137+140/22/18
+video_format = 18
+
 # What time to turn the sound off? (e.g. 2300 = 11pm)
 # (Make sure you've set your timezone. Try "sudo raspi-config".)
 mute_time = 2300
@@ -12,5 +19,3 @@ unmute_time = 1000
 
 # Are you using a graphic LCD ticker? (y or n)
 use_ticker = y
-
-# YouTube download format

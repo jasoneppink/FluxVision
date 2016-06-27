@@ -17,6 +17,7 @@ abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
 config = ConfigParser.ConfigParser()
 config.readfp(open(abs_path + 'config.txt', 'r'))
 playlist_id = config.get('FluxVision Config', 'playlist_id')
+video_format = config.get('FluxVision Config', 'video_format')
 
 class videoinfo(object):
 	def __init__(self, title, youtubeURL, filename):
@@ -30,8 +31,7 @@ def update(playlist_id):
 		os.utime(abs_path + '.get_youtube_lck', None)
 
 	#for each video in playlist, get title, YouTube URL, and (aspirational) local file name (media/ID.mp4)
-	#'-f 18' is a 360p mp4 file (very standard option), others are mp4 backups with similar sizes
-	raw_output = subprocess.check_output(['youtube-dl', '-o', "media/%(id)s.%(ext)s", 'https://www.youtube.com/playlist?list=' + playlist_id, '-f', '18/134/135/22', '--get-filename', '--get-title', '--get-url'])
+	raw_output = subprocess.check_output(['youtube-dl', '-o', "media/%(id)s.%(ext)s", 'https://www.youtube.com/playlist?list=' + playlist_id, '-f', video_format, '--get-filename', '--get-title', '--get-url'])
 	youtube_data = raw_output.splitlines()
 
 	#parse into readable list of classes
