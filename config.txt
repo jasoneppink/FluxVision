@@ -12,10 +12,13 @@ video_format = 18
 
 # What time to turn the sound off? (e.g. 2300 = 11pm)
 # (Make sure you've set your timezone. Try "sudo raspi-config".)
-mute_time = 2300
+mute_time = 2345
 
 # What time to turn the sound back on? (e.g. 1000 = 10am)
 unmute_time = 1000
 
 # Are you using a graphic LCD ticker? (y or n)
 use_ticker = y
+
+# Default Volume. 0 = maximum. -6000 = minimum
+default_volume = -100

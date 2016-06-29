@@ -23,6 +23,7 @@ playlist_id = config.get('FluxVision Config', 'playlist_id')
 mute_time = config.get('FluxVision Config', 'mute_time')
 unmute_time = config.get('FluxVision Config', 'unmute_time')
 use_ticker = config.get('FluxVision Config', 'use_ticker')
+default_volume = config.get('FluxVision Config', 'default_volume')
 
 class videoinfo(object):
         def __init__(self, title, youtubeURL, filename):
@@ -42,14 +43,14 @@ for video in playlist:
 	if (int(mute_time) > int(unmute_time)): # if mute happens before midnight
 		if int(strftime("%-H%M", localtime())) > int(mute_time) or int(strftime("%-H%M", localtime())) < int(unmute_time):
 			#mute
-			vol=-6000
+			vol = -6000
 		else:
-			vol=0
+			vol = default_volume
 	else: # if mute happens after midnight
 		if int(strftime("%-H%M", localtime())) > int(mute_time) and int(strftime("%-H%M", localtime())) < int(unmute_time):
-			vol=-6000
+			vol = -6000
 		else:
-			vol=0
+			vol = default_volume
 
 	#if video file exists
 	if os.path.isfile(abs_path + video.filename):
