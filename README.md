@@ -6,7 +6,7 @@ FluxVision was built to support a collection of persistent video installations r
 * New videos are downloaded in the background, usually available within one playthrough of the playlist
 * Automatic muting at night (times can be edited)
 * Character LCD ticker displays title of current video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
-# Simple GPIO skip button advances to next video
+* Simple GPIO skip button advances to next video
 
 #####Upcoming features:
 * Volume knob support
