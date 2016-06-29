@@ -1,11 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# TODO: detect simulated "o" key press (from skip button) and immediately display new title
 
 # Based on AdaFruit example
 import math
 import time
 import Adafruit_CharLCD as LCD
 import os
+import socket
 
 abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
 
@@ -49,10 +51,27 @@ while True:
 	if os.path.isfile(abs_path + '.title_txt') is True:
 		with open(abs_path + '.title_txt') as titlefile:
 			titledata = titlefile.read()
-		scroll(lcd, titledata)
-		lcd.clear()
-		lcd.message("You're watching\nFluxVision!")
+		#if titledata is an IP address
+		try:
+			socket.inet_aton(titledata)
+			lcd.clear()
+			lcd.message("IP Address:\n" + titledata)
+			time.sleep(10.0)
+			#lcd.clear()
+			#lcd.message(" Downloading\n videos now...  ")
+		#otherwise it's a title
+		except socket.error:
+			if titledata == "Acquiring IP\naddress...":
+				lcd.clear()
+				lcd.message(titledata)
+				time.sleep(10.0)
+			else:
+				scroll(lcd, titledata)
+				lcd.clear()
+				lcd.message("You're watching\nFluxVision!")
+				time.sleep(6.0)
+				lcd.clear()
+	else:
+		lcd.message(" File Not Found")
 		time.sleep(6.0)
 		lcd.clear()
-	else:
-		lcd.message(" Downloading\n videos now...  ")

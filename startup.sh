@@ -2,13 +2,19 @@
 
 #clear screen
 printf '%b\n' '\033[2J\033[:'
-printf 'acquiring IP address...'
+printf 'Acquiring IP address...'
+printf 'Acquiring IP\naddress...' > /home/pi/.title_txt
+
+#start ticker
+sudo /usr/bin/python /home/pi/ticker.py &
+
 sleep 30s
 
 #print IP address
 printf '%b\n' '\033[2J\033[:'
-printf 'IP address: '
-ip route get 8.8.8.8 | awk '{print $NF; exit}'
+printf 'IP Address: '
+ip route get 8.8.8.8 | awk '{print $7; exit}'
+ip route get 8.8.8.8 | awk '{printf $7}' > /home/pi/.title_txt
 sleep 10s
 
 #clear screen again
@@ -19,10 +25,9 @@ sudo sh -c "TERM=linux setterm -foreground black >/dev/tty0"
 
 #delete temporary files
 rm -f /home/pi/.get_youtube_lck
-rm -f /home/pi/.title_txt
 
-#start ticker
-sudo /usr/bin/python /home/pi/ticker.py &
+#start video skip button
+sudo /usr/bin/python /home/pi/skip_video.py &
 
 #start video
 while true
