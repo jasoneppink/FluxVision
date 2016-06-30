@@ -5,6 +5,9 @@ printf '%b\n' '\033[2J\033[:'
 printf 'Acquiring IP address...'
 printf 'Acquiring IP\naddress...' > /home/pi/.title_txt
 
+#start video skip button
+sudo /usr/bin/python /home/pi/skip_video.py &
+
 #start ticker
 sudo /usr/bin/python /home/pi/ticker.py &
 
@@ -25,9 +28,6 @@ sudo sh -c "TERM=linux setterm -foreground black >/dev/tty0"
 
 #delete temporary files
 rm -f /home/pi/.get_youtube_lck
-
-#start video skip button
-sudo /usr/bin/python /home/pi/skip_video.py &
 
 #start video
 while true
