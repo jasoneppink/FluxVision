@@ -53,7 +53,12 @@ and add this line so FluxVision starts at boot:
   ```
   sudo -u pi /home/pi/startup.sh
   ```
-7. Reboot! Videos play as soon as they're downloaded.
+7. (optional) Clear disk space for downloaded videos. If you're running Raspbian, this command removes up to 1GB of applications you probably don't use.
+
+  ```
+  sudo apt-get remove wolfram-engine minecraft-pi python-minecraftpi sonic-pi oracle-java8-jdk pistore scratch nuscratch python3-pygame
+  ```
+8. Reboot! Videos play as soon as they're downloaded.
 
   ```
   sudo reboot
