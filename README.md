@@ -23,16 +23,42 @@ FluxVision was built to support a collection of persistent video installations r
   ```
   sudo apt-get install omxplayer
   ```
-3. Copy all files into your home directory (usually /home/pi/).
+3. Download FluxVision files to your Raspberry Pi
 
-4. Update "config.txt" with your playlist ID and other details.
+  ```
+  git clone https://www.github.com/jasoneppink/FluxVision
+  ```
+4. Move everything to your home directory and delete the FluxVision directory
 
-5. Add this line to /etc/rc.local so FluxVision starts at boot (change directory if necessary):
+  ```
+  cd FluxVision
+  mv * ../
+  cd ..
+  rm -rf FluxVision
+  ```
+
+5. Update "config.txt" with your playlist ID and other details.
+
+  ```
+  nano config.txt
+  ```
+
+6. Open /etc/rc.local:
+
+  ```
+  sudo nano /etc/rc.local
+  ```
+and add this line so FluxVision starts at boot:
 
   ```
   sudo -u pi /home/pi/startup.sh
   ```
-7. Reboot! Videos play as soon as they're downloaded.
+7. (optional) Clear disk space for downloaded videos. If you're running Raspbian, this command removes up to 1GB of applications you probably don't use.
+
+  ```
+  sudo apt-get remove wolfram-engine minecraft-pi python-minecraftpi sonic-pi oracle-java8-jdk pistore scratch nuscratch python3-pygame
+  ```
+8. Reboot! Videos play as soon as they're downloaded.
 
   ```
   sudo reboot
