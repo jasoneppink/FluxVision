@@ -7,6 +7,8 @@ import getpass
 import dbus
 import os
 from os import stat
+import pwd
+from subprocess import check_output
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -37,16 +39,22 @@ def dbus_setup():
 	done, retry = 0,0
 	while done==0:
 		try:
+			#get username of omxplayer process
+			omxplayer_pid = check_output(["pgrep","-of","omxplayer"])
+			proc_stat_file = os.stat("/proc/%d" % int(omxplayer_pid))
+			omxplayer_uid = proc_stat_file.st_uid
+			username = pwd.getpwuid(omxplayer_uid)[0]
+
 			#get uid and gid of omxplayer process
-			user_id = stat('/tmp/omxplayerdbus.pi').st_uid
-			group_id = stat('/tmp/omxplayerdbus.pi').st_gid
+			user_id = stat('/tmp/omxplayerdbus.' + username).st_uid
+			group_id = stat('/tmp/omxplayerdbus.' + username).st_gid
 
 			#set effective user and group to omxplayer process owner
 			os.setegid(group_id)
 			os.seteuid(user_id)
 
 			#with open('/tmp/omxplayerdbus.' + getpass.getuser(), 'r+') as f:
-			with open('/tmp/omxplayerdbus.pi', 'r+') as f:
+			with open('/tmp/omxplayerdbus.' + username, 'r+') as f:
 				omxplayerdbus = f.read().strip()
 			bus = dbus.bus.BusConnection(omxplayerdbus)
 			object = bus.get_object('org.mpris.MediaPlayer2.omxplayer','/org/mpris/MediaPlayer2', introspect=False)

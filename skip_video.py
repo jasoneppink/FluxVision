@@ -26,7 +26,6 @@ def skip_video(PinNr):
 
 	inp = GPIO.input(PinNr)
 	if ((not prev_inp) and inp):
-		print("button pressed")
 		count = count + 1
 
 		#turn off LED
@@ -39,14 +38,12 @@ def skip_video(PinNr):
 
 		#kill ticker.py (multiple instances if necessary)
 		pids = check_output(["pgrep","-f","ticker.py"])
-		print(pids)
-#		os.kill(int(pids), signal.SIGKILL)
 		for pid in pids.splitlines():
-			print(pid)
 			try:
 				os.kill(int(pid), signal.SIGKILL)
 			except Exception,exc:
 				print str(exc)
+
 		#relaunch ticker.py
 		subprocess.Popen("/home/pi/ticker.py &", shell=True)
 
