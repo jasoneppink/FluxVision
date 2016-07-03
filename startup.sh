@@ -26,13 +26,13 @@ printf '%b\n' '\033[2J\033[:'
 #turn all prompt text black (keeps screen black)
 sudo sh -c "TERM=linux setterm -foreground black >/dev/tty0"
 
-#delete temporary files
+#delete temporary lock file (if it exists because of premature shutdown)
 rm -f /home/pi/.get_youtube_lck
 
 #start volume knob
 sudo /usr/bin/python /home/pi/volume.py &
 
-#start video
+#start video playback
 while true
 do
 	/usr/bin/python /home/pi/play_youtube.py
