@@ -17,21 +17,18 @@ GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP) #pin 40
 GPIO.setup(13, GPIO.OUT) #pin 33
 GPIO.output(13, True)
 
-count = 0
 prev_inp = 1
 
 def skip_video(PinNr):
 	global prev_inp
-	global count
 
 	inp = GPIO.input(PinNr)
 	if ((not prev_inp) and inp):
-		count = count + 1
 
 		#turn off LED
 		GPIO.output(13,False)
 
-		#print "o", which tells omxplayer to skip to the next video
+		#simulate keystroke "o", which tells omxplayer to skip to the next video (easier than using dbus!)
 		with uinput.UInput() as ui:
 			ui.write(e.EV_KEY, e.KEY_O, 1)
 			ui.syn()
