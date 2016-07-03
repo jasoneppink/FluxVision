@@ -29,6 +29,9 @@ sudo sh -c "TERM=linux setterm -foreground black >/dev/tty0"
 #delete temporary files
 rm -f /home/pi/.get_youtube_lck
 
+#start volume knob
+sudo /usr/bin/python /home/pi/volume.py &
+
 #start video
 while true
 do
