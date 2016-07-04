@@ -4,9 +4,6 @@
 import RPi.GPIO as GPIO
 from evdev import uinput, ecodes as e
 import time
-import subprocess, signal
-from subprocess import check_output
-import os
 
 #define skip button GPIO pin
 GPIO.setmode(GPIO.BCM)
@@ -32,17 +29,6 @@ def skip_video(PinNr):
 		with uinput.UInput() as ui:
 			ui.write(e.EV_KEY, e.KEY_O, 1)
 			ui.syn()
-
-		#kill ticker.py (multiple instances if necessary)
-		pids = check_output(["pgrep","-f","ticker.py"])
-		for pid in pids.splitlines():
-			try:
-				os.kill(int(pid), signal.SIGKILL)
-			except Exception,exc:
-				print str(exc)
-
-		#relaunch ticker.py
-		subprocess.Popen("/home/pi/ticker.py &", shell=True)
 
 		#disble button for 1 second
 		time.sleep(1.0)

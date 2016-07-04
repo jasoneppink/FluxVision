@@ -6,6 +6,8 @@
 # and plays each video
 import sys
 import subprocess
+from subprocess import check_output
+import signal
 import os
 import pickle
 import threading
@@ -54,13 +56,27 @@ for video in playlist:
 
 	#if video file exists
 	if os.path.isfile(abs_path + video.filename):
-		#update ticker title
+
+		#update ticker
 		if use_ticker == 'y':
+			#update .title_txt file
 			with open(abs_path + '.title_txt', 'w') as title:
 				title.truncate()
 				title.write(video.title)
+			#kill ticker.py (multiple instances if necessary)
+			pids = check_output(["pgrep","-f","ticker.py"])
+			for pid in pids.splitlines():
+				try:
+					os.system("sudo kill %d"%(int(pid)))
+				except Exception,exc:
+					print str(exc)
+			#relaunch ticker.py
+			try:
+				subprocess.Popen("sudo python /home/pi/ticker.py &", shell=True)
+			except Exception,exc:
+				print str(exc)
 		#play video
-		process = subprocess.call(['omxplayer', '-b', '-o', 'local', abs_path + video.filename, '--vol', str(vol)], stdout=open(os.devnull, 'wb'))
+		process = subprocess.call(['omxplayer', '-b', '-o', 'local', abs_path + video.filename, '--vol', str(vol), '--no-osd'], stdout=open(os.devnull, 'wb'))
 
 #check if the playlist is currently being updated; if not, do that now as a separate process
 if os.path.exists(abs_path + '.get_youtube_lck') is False:
