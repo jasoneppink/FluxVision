@@ -45,15 +45,15 @@ def dbus_setup():
 			omxplayer_uid = proc_stat_file.st_uid
 			username = pwd.getpwuid(omxplayer_uid)[0]
 
-			#get uid and gid of omxplayer process
+			#get uid and gid of omxplayer dbus process
 			user_id = stat('/tmp/omxplayerdbus.' + username).st_uid
 			group_id = stat('/tmp/omxplayerdbus.' + username).st_gid
 
-			#set effective user and group to omxplayer process owner
+			#set effective user and group to omxplayer dub process owner
 			os.setegid(group_id)
 			os.seteuid(user_id)
 
-			#with open('/tmp/omxplayerdbus.' + getpass.getuser(), 'r+') as f:
+			#dbus access
 			with open('/tmp/omxplayerdbus.' + username, 'r+') as f:
 				omxplayerdbus = f.read().strip()
 			bus = dbus.bus.BusConnection(omxplayerdbus)
@@ -70,17 +70,18 @@ def dbus_setup():
 				raise SystemExit
 			retry+=1
 			time.sleep(0.1)
+
 #main
 try:
 	while True:
 		raw_num = analog_read()
 		#adapt raw readings so they are between 0 and 1
-		vol = (raw_num - 47)/540.0
+		#with a 10K potentiometer, the raw numbers are approximately between 50 (low) and 560 (high)
+		vol = (raw_num - 50)/510.0
 		if vol > 1:
 			vol = 1.0
-		if vol < .01:
-			vol = .01
-		#print str(raw_num) + ": " + str(vol)
+		if vol < 0.01:
+			vol = 0.0
 		try:
 			dbusIfaceProp.Volume(dbus.Double(vol))
 		except:
@@ -88,9 +89,3 @@ try:
 		time.sleep(0.05)
 except KeyboardInterrupt:
 	GPIO.cleanup()
-
-#raw_num when video is NOT playing:
-#30 - 350
-
-#raw video when video is playing:
-#47 - 540
