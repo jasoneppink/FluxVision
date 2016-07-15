@@ -3,13 +3,13 @@
 #clear screen
 printf '%b\n' '\033[2J\033[:'
 printf 'Acquiring IP address...'
-printf 'Acquiring IP\naddress...' > /home/pi/.title_txt
+printf 'Acquiring IP\naddress...' > ${BASH_SOURCE%/*}/.title_txt
 
-#start video skip button
-sudo /usr/bin/python /home/pi/skip_video.py &
+#start video skip button (uncomment this line if you are using a skip button)
+#sudo /usr/bin/python ${BASH_SOURCE%/*}/skip_video.py &
 
-#start ticker
-sudo /usr/bin/python /home/pi/ticker.py &
+#start ticker (uncomment this line if you are using a ticker)
+#sudo /usr/bin/python ${BASH_SOURCE%/*}/ticker.py &
 
 sleep 30s
 
@@ -17,7 +17,7 @@ sleep 30s
 printf '%b\n' '\033[2J\033[:'
 printf 'IP Address: '
 ip route get 8.8.8.8 | awk '{print $7; exit}'
-ip route get 8.8.8.8 | awk '{printf $7}' > /home/pi/.title_txt
+ip route get 8.8.8.8 | awk '{printf $7}' > ${BASH_SOURCE%/*}/.title_txt
 sleep 10s
 
 #clear screen again
@@ -27,13 +27,13 @@ printf '%b\n' '\033[2J\033[:'
 sudo sh -c "TERM=linux setterm -foreground black >/dev/tty0"
 
 #delete temporary lock file (if it exists because of premature shutdown)
-rm -f /home/pi/.get_youtube_lck
+rm -f ${BASH_SOURCE%/*}/.get_youtube_lck
 
-#start volume knob
-sudo /usr/bin/python /home/pi/volume.py &
+#start volume knob (uncomment this line if you are using a volume knob)
+#sudo /usr/bin/python ${BASH_SOURCE%/*}/volume.py &
 
 #start video playback
 while true
 do
-	/usr/bin/python /home/pi/play_youtube.py
+	/usr/bin/python ${BASH_SOURCE%/*}/play_youtube.py
 done
