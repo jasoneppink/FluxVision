@@ -6,8 +6,8 @@ FluxVision was built to support a collection of persistent video installations r
 * New videos are downloaded in the background, usually available within one playthrough of the playlist
 * Automatic muting at night (times can be edited)
 * Character LCD ticker displays title of current video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
-* External skip button advances to next video (and immediately advances ticker text)
-* External volume knob adjusts video volume in real time (using simple analog-to-digital converter with potentiometer and GPIO)
+* External skip button advances to next video
+* External volume knob adjusts video volume in real time (using simple analog-to-digital converter with linear potentiometer and GPIO)
 
 ##Installation
 
@@ -26,21 +26,17 @@ FluxVision was built to support a collection of persistent video installations r
   ```
   git clone https://www.github.com/jasoneppink/FluxVision
   ```
-4. Move everything to your home directory and delete the FluxVision directory
+4. Update "config.txt" with your playlist ID and other details.
 
   ```
   cd FluxVision
-  mv * ../
-  cd ..
-  rm -rf FluxVision
-  ```
-
-5. Update "config.txt" with your playlist ID and other details.
-
-  ```
   nano config.txt
   ```
+5. (optional) Uncomment lines in "startup.sh" if you are using a ticker, skip button, or volume knob
 
+  ```
+  nano startup.sh
+  ```
 6. Open /etc/rc.local:
 
   ```
@@ -49,7 +45,7 @@ FluxVision was built to support a collection of persistent video installations r
 and add this line so FluxVision starts at boot:
 
   ```
-  sudo -u pi /home/pi/startup.sh
+  sudo -u pi /home/pi/FluxVision/startup.sh
   ```
 7. (optional) Clear disk space for downloaded videos. If you're running Raspbian, this command can remove up to 1GB of applications you probably don't use.
 

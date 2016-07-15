@@ -18,7 +18,7 @@ mute_time = 2300
 unmute_time = 1000
 
 # Are you using a graphic LCD ticker? (y or n)
-use_ticker = y
+use_ticker = n
 
 # Default Volume. 0 = maximum. -6000 = minimum
-default_volume = -1000
+default_volume = -100
