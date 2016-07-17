@@ -10,7 +10,7 @@ FluxVision was built to support a collection of persistent video installations r
 * Support for an external volume knob that adjusts video volume in real time (using a simple analog-to-digital converter with a linear potentiometer connected via GPIO pins)
 
 #####Note:
-* Recommended operating system is Raspbian Jessie, on which FluxVision was developed for and stress tested on. (Omxplayer was found to randomly hang between videos on Raspbian Wheezy.)
+* Recommended operating system is Raspbian Jessie, on which FluxVision was developed and stress tested. (Omxplayer was found to randomly hang between videos on Raspbian Wheezy.)
 
 ##Installation
 
