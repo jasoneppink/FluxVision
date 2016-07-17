@@ -19,10 +19,10 @@ FluxVision was built to support a collection of persistent video installations r
   ```
   sudo pip install --upgrade youtube_dl
   ```
-2. Install omxplayer (if necessary)
+2. Install omxplayer and libav-tools
 
   ```
-  sudo apt-get install omxplayer
+  sudo apt-get install omxplayer libav-tools
   ```
 3. Download FluxVision files to your Raspberry Pi
 
