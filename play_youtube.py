@@ -28,9 +28,9 @@ use_ticker = config.get('FluxVision Config', 'use_ticker')
 default_volume = config.get('FluxVision Config', 'default_volume')
 
 class videoinfo(object):
-        def __init__(self, title, youtubeURL, filename):
+        def __init__(self, title, youtubeID, filename):
                 self.title = title
-                self.youtubeURL = youtubeURL
+                self.youtubeID = youtubeID
                 self.filename = filename
 
 #open playlist file

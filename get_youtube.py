@@ -20,9 +20,9 @@ playlist_id = config.get('FluxVision Config', 'playlist_id')
 video_format = config.get('FluxVision Config', 'video_format')
 
 class videoinfo(object):
-	def __init__(self, title, youtubeURL, filename):
+	def __init__(self, title, youtubeID, filename):
 		self.title = title
-		self.youtubeURL = youtubeURL
+		self.youtubeID = youtubeID
 		self.filename = filename
 
 def update(playlist_id):
@@ -30,8 +30,8 @@ def update(playlist_id):
 	with open(abs_path + '.get_youtube_lck', 'w'):
 		os.utime(abs_path + '.get_youtube_lck', None)
 
-	#for each video in playlist, get title, YouTube URL, and (aspirational) local file name (media/ID.mp4)
-	raw_output = subprocess.check_output(['youtube-dl', '-o', "media/%(id)s.%(ext)s", 'https://www.youtube.com/playlist?list=' + playlist_id, '-f', video_format, '--get-filename', '--get-title', '--get-url'])
+	#for each video in playlist, get title, YouTube ID, and (aspirational) local file name (media/ID.mp4)
+	raw_output = subprocess.check_output(['youtube-dl', '-o', "media/%(id)s.%(ext)s", 'https://www.youtube.com/playlist?list=' + playlist_id, '--get-filename', '--get-title', '--get-id'])
 	youtube_data = raw_output.splitlines()
 
 	#parse into readable list of classes
@@ -48,7 +48,7 @@ def update(playlist_id):
 	#if there's a video in the list that isn't already saved, download it
 	for video in playlist:
 		if os.path.isfile(abs_path + video.filename) is False:
-			subprocess.check_output(['youtube-dl', '-o', abs_path + video.filename, video.youtubeURL])
+			subprocess.check_output(['youtube-dl', '-o', abs_path + video.filename, "https://www.youtube.com/watch?v=" + video.youtubeID, "-f", video_format])
 
 	#if there's a video that has been previously saved that is no longer on the list, delete it
 	for file in os.listdir(abs_path + "media"):
