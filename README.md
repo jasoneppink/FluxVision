@@ -1,13 +1,16 @@
 # FluxVision
-FluxVision was built to support a collection of persistent video installations running on Raspberry Pis that automatically update themselves from a YouTube playlist. Anyone (with proper credentials) can add a video to the YouTube playlist, allowing for simple administration of a collaboratively-curated, ever-evolving, looping video installation.
+FluxVision was built to support a collection of persistent video installations running on Raspberry Pis that automatically update themselves from a YouTube playlist. Anyone (with proper credentials) can add a video to the YouTube playlist. This allows for simple administration of a collaboratively-curated, ever-evolving, looping video installation.
 
 #####Features:
 * Videos are downloaded once, not streamed (light on bandwidth)
 * New videos are downloaded in the background, usually available within one playthrough of the playlist
 * Automatic muting at night (times can be edited)
-* Character LCD ticker displays title of current video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
-* External skip button advances to next video
-* External volume knob adjusts video volume in real time (using simple analog-to-digital converter with linear potentiometer and GPIO)
+* Support for a character LCD ticker that displays the title of the current video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
+* Support for an external skip button that advances to the next video
+* Support for an external volume knob that adjusts video volume in real time (using a simple analog-to-digital converter with a linear potentiometer connected via GPIO pins)
+
+#####Note:
+* Recommended operating system is Raspbian Jessie, on which FluxVision was developed for and stress tested on. (Omxplayer was found to randomly hang between videos on Raspbian Wheezy.)
 
 ##Installation
 
