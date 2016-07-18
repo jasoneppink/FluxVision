@@ -7,7 +7,7 @@
 import sys, subprocess, signal, os, pickle, threading, time, ConfigParser
 from subprocess import check_output
 from time import localtime, strftime
-from misc import get_start_time
+from dashboard import get_start_time
 
 #get absolute path of this script (necessary because it's being called, indirectly, from rc.local)
 abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
