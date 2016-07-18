@@ -4,16 +4,10 @@
 # This script imports playlist.dat
 # updates it in the background
 # and plays each video
-import sys
-import subprocess
+import sys, subprocess, signal, os, pickle, threading, time, ConfigParser
 from subprocess import check_output
-import signal
-import os
-import pickle
-import threading
-import time
 from time import localtime, strftime
-import ConfigParser
+from misc import get_start_time
 
 #get absolute path of this script (necessary because it's being called, indirectly, from rc.local)
 abs_path = os.path.dirname(os.path.abspath(__file__)) + "/"
@@ -24,8 +18,10 @@ config.readfp(open(abs_path + 'config.txt', 'r'))
 playlist_id = config.get('FluxVision Config', 'playlist_id')
 mute_time = config.get('FluxVision Config', 'mute_time')
 unmute_time = config.get('FluxVision Config', 'unmute_time')
-use_ticker = config.get('FluxVision Config', 'use_ticker')
 default_volume = config.get('FluxVision Config', 'default_volume')
+dashboard = config.get('FluxVision Config', 'dashboard')
+use_ticker = config.get('FluxVision Config', 'use_ticker')
+
 
 class videoinfo(object):
         def __init__(self, title, youtubeID, filename):
@@ -56,13 +52,24 @@ for video in playlist:
 
 	#if video file exists
 	if os.path.isfile(abs_path + video.filename):
-
+		#update .title_txt
+		with open(abs_path + '.title_txt', 'w') as title:
+			title.truncate()
+			title.write(video.title)
+		#update /etd/motd (displays current video on login)
+		if dashboard == 'y':
+			with open('/tmp/motd.tmp', 'w') as login_text:
+				login_text.truncate()
+				login_text.write('    ________          _    ___      _           \n')
+				login_text.write('   / ____/ /_  ___  _| |  / (_)____(_)___  ____ \n')
+				login_text.write('  / /_  / / / / / |/ / | / / / ___/ / __ \\/ __ \\\n')
+				login_text.write(' / __/ / / /_/ />  < | |/ / (__  ) / /_/ / / / /\n')
+				login_text.write('/_/   /_/\\__,_/_/|_| |___/_/____/_/\\____/_/ /_/ \n')
+				login_text.write('Launched: ' + get_start_time() + '\n')
+				login_text.write('Now playing: ' + video.title + '\n\n')
+			os.system('sudo mv /tmp/motd.tmp /etc/motd')
 		#update ticker
 		if use_ticker == 'y':
-			#update .title_txt file
-			with open(abs_path + '.title_txt', 'w') as title:
-				title.truncate()
-				title.write(video.title)
 			#kill ticker.py (multiple instances if necessary)
 			pids = check_output(["pgrep","-f","ticker.py"])
 			for pid in pids.splitlines():
