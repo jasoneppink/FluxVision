@@ -28,8 +28,8 @@ sudo sh -c "TERM=linux setterm -foreground black >/dev/tty0"
 
 #reset temporary files
 rm -f ${BASH_SOURCE%/*}/.get_youtube_lck
-echo "0" > ${BASH_SOURCE%/*}/.count_video
-echo "0" > ${BASH_SOURCE%/*}/.count_playlist
+printf "0" > ${BASH_SOURCE%/*}/.count_video
+printf "0" > ${BASH_SOURCE%/*}/.count_playlist
 
 #start volume knob (uncomment this line if you are using a volume knob)
 #sudo /usr/bin/python ${BASH_SOURCE%/*}/volume.py &

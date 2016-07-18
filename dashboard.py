@@ -97,8 +97,8 @@ def update(video_title):
 		dashboard_text.write('/_/   /_/\\__,_/_/|_| |___/_/____/_/\\____/_/ /_/ \n')
 		dashboard_text.write('Launched: ' + get_process_time("start") + '\n')
 		dashboard_text.write('Playing for: ' + get_process_time("duration") + '\n')
-		dashboard_text.write('Videos played: ' + get_num_videos_played())
-		dashboard_text.write('Playlist loops: ' + get_num_playlist_playthroughs())
+		dashboard_text.write('Videos played: ' + get_num_videos_played() + '\n')
+		dashboard_text.write('Playlist loops: ' + get_num_playlist_playthroughs() + '\n')
 		dashboard_text.write('Now playing: ' + video_title + '\n\n')
 
 	os.system('sudo mv /tmp/motd.tmp /etc/motd')

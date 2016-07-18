@@ -53,9 +53,9 @@ for video in playlist:
 	#if video file exists
 	if os.path.isfile(abs_path + video.filename):
 		#update .count_video
-		with open(abs_path + '.count_video', 'r+') as count_video:
+		with open(abs_path + '.count_video') as count_video:
 			value = int(count_video.read())
-			count_video.seek(0)
+		with open(abs_path + '.count_video', 'w') as count_video:
 			count_video.write(str(value + 1))
 		#update .title_txt
 		with open(abs_path + '.title_txt', 'w') as title:
@@ -82,9 +82,9 @@ for video in playlist:
 		process = subprocess.call(['omxplayer', '-b', '-o', 'local', abs_path + video.filename, '--vol', str(vol), '--no-osd'], stdout=open(os.devnull, 'wb'))
 
 #increment .count_playlist
-with open(abs_path + '.count_playlist', 'r+') as count_playlist:
+with open(abs_path + '.count_playlist') as count_playlist:
 	value = int(count_playlist.read())
-	count_playlist.seek(0)
+with open(abs_path + '.count_playlist') as count_playlist:
 	count_playlist.write(str(value + 1))
 
 #check if the playlist is currently being updated; if not, do that now as a separate process
