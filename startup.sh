@@ -26,8 +26,10 @@ printf '%b\n' '\033[2J\033[:'
 #turn all prompt text black (keeps screen black)
 sudo sh -c "TERM=linux setterm -foreground black >/dev/tty0"
 
-#delete temporary lock file (if it exists because of premature shutdown)
+#reset temporary files
 rm -f ${BASH_SOURCE%/*}/.get_youtube_lck
+echo "0" > ${BASH_SOURCE%/*}/.count_video
+echo "0" > ${BASH_SOURCE%/*}/.count_playlist
 
 #start volume knob (uncomment this line if you are using a volume knob)
 #sudo /usr/bin/python ${BASH_SOURCE%/*}/volume.py &
