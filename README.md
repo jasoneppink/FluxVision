@@ -1,5 +1,5 @@
 # FluxVision
-FluxVision is a set of scripts for playing a YouTube playlist on loop on a Raspberry Pi. Anyone with access to the YouTube account can add a video to the playlist, allowing for simple administration of a collaboratively-curated, easy to update, looping video installation.
+FluxVision is a set of scripts for playing a YouTube playlist on loop on a Raspberry Pi. Anyone with access to a designated YouTube account can add a video to the playlist. This allows for simple administration of an easy to update, collaboratively-curated (if desired), looping video installation that doesn't require physical access to the player.
 
 #####Features:
 * Videos are downloaded once (not streamed)
