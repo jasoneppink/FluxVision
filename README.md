@@ -1,7 +1,7 @@
 # FluxVision
 FluxVision is a set of scripts for playing a YouTube playlist on loop on a Raspberry Pi. Anyone with access to a designated YouTube account can add a video to the playlist. This allows for simple administration of an easy to update, collaboratively-curated (if desired), looping video installation that doesn't require physical access to the player.
 
-#####Features:
+##### Features:
 * Videos are downloaded once (not streamed)
 * Automatically detects and downloads new videos when they are added to the YouTube playlist, usually available within one playthrough
 * Automatically mutes at night (times can be edited)
@@ -9,10 +9,10 @@ FluxVision is a set of scripts for playing a YouTube playlist on loop on a Raspb
 * Support for an external skip button that advances to the next video
 * Support for an external volume knob that adjusts video volume in real time (using a simple analog-to-digital converter with a linear potentiometer connected via GPIO pins)
 
-#####Note:
+##### Note:
 * Recommended operating system is Raspbian Jessie, on which FluxVision was developed and stress tested. (Omxplayer was found to randomly hang between videos on Raspbian Wheezy.)
 
-##Installation
+## Installation
 
 1. Install youtube-dl
 
