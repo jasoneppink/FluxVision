@@ -84,7 +84,7 @@ for video in playlist:
 #increment .count_playlist
 with open(abs_path + '.count_playlist') as count_playlist:
 	value = int(count_playlist.read())
-with open(abs_path + '.count_playlist') as count_playlist:
+with open(abs_path + '.count_playlist', 'w' ) as count_playlist:
 	count_playlist.write(str(value + 1))
 
 #check if the playlist is currently being updated; if not, do that now as a separate process
