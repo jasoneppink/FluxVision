@@ -36,7 +36,23 @@ try:
 except Exception, e:
 	playlist = []
 
+#open blacklist.txt file
+try:
+	with open(abs_path + 'blacklist.txt') as f:
+		blacklist = f.readlines()
+except Exception, e:
+	blacklist = []
+
 for video in playlist:
+    #skip video if the title contains a line in blacklist.txt
+    skipVideo = False
+    for line in blacklist:
+        if line[:-1] in video.title:
+            skipVideo = True
+            break
+    if skipVideo:
+        continue
+    
 	#adjust volume based on times in config.txt
 	if (int(mute_time) > int(unmute_time)): # if mute happens before midnight
 		if int(strftime("%-H%M", localtime())) > int(mute_time) or int(strftime("%-H%M", localtime())) < int(unmute_time):
