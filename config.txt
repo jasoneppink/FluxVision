@@ -25,3 +25,5 @@ dashboard = y
 
 # Are you using a graphic LCD ticker? (y or n)
 use_ticker = n
+
+# To blacklist videos, add a word or phrase, one per line, to blacklist.txt
