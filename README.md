@@ -8,6 +8,7 @@ FluxVision is a set of scripts for playing a YouTube playlist on loop on a Raspb
 * Support for a character LCD ticker that displays the title of the current video (requires [Adafruit_Python_CharLCD](https://github.com/adafruit/Adafruit_Python_CharLCD))
 * Support for an external skip button that advances to the next video
 * Support for an external volume knob that adjusts video volume in real time (using a simple analog-to-digital converter with a linear potentiometer connected via GPIO pins)
+* Support for blacklisting videos by title (Add the blacklisted title or phrase as a line to 'blacklist.txt')
 
 ##### Note:
 * Recommended operating system is Raspbian Jessie, on which FluxVision was developed and stress tested. (Omxplayer was found to randomly hang between videos on Raspbian Wheezy.)
